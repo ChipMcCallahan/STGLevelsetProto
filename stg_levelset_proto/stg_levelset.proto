@@ -157,10 +157,10 @@ enum ElemId {
     // --FENCE: mobs cannot enter
     CHIP = 300; // + color * 10_000 + rule * 1_000 + count
     BOMB = 301;
-    FLIPPERS = 302; // + rule * 10_000 + count
-    SUCTION = 303; // + rule * 10_000 + count
-    FIREBOOTS = 304; // + rule * 10_000 + count
-    SKATES = 305; // + rule * 10_000 + count
+    FLIPPERS = 302; // + rule * 1_000 + count
+    SUCTION = 303; // + rule * 1_000 + count
+    FIREBOOTS = 304; // + rule * 1_000 + count
+    SKATES = 305; // + rule * 1_000 + count
     KEY = 306; // + color * 10_000 + rule * 1_000 + count (999 = FOREVER KEY, do not decrement)
 
     // MOB
