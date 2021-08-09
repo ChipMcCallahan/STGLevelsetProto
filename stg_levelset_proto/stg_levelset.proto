@@ -161,7 +161,7 @@ enum ElemId {
     SUCTION = 303; // + rule * 10_000 + count
     FIREBOOTS = 304; // + rule * 10_000 + count
     SKATES = 305; // + rule * 10_000 + count
-    KEY = 306; // + color * 10_000 + count (9999 = FOREVER KEY, do not decrement)
+    KEY = 306; // + color * 10_000 + rule * 1_000 + count (999 = FOREVER KEY, do not decrement)
 
     // MOB
     PLAYER = 400; // + mob_id
