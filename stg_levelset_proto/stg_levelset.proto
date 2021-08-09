@@ -34,10 +34,10 @@ message Gameboard {
     // list index by color, map index by channel
     // Global variables are stored in Colors and Channels. 
     // Channels are nested under Colors. A toggle event 
-    //consists of a {Color, Channel} combo, either of which can be 0 (default).
+    // consists of a {Color, Channel} combo, either of which can be 0 (default).
     // If color == 0, iterate through all colors and toggle the
     // specified channel.
-    repeated map<int32, bool> globals = 6;
+    repeated ChannelSet globals = 6;
 
     // p = z * (size_x + size_y) + y * size_x + x
     // x = (p % size_z) % size_x
@@ -48,6 +48,10 @@ message Gameboard {
 
     // token guid to state
     map<int32, ElementState> element_states = 9;
+}
+
+message ChannelSet {
+    map<int32, bool> channels = 1;
 }
 
 message Cell {
