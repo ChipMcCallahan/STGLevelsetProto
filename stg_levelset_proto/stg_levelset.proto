@@ -100,34 +100,37 @@ enum ElemId {
 
     // TERRAIN
     SPACE = 1;
-    FLOOR = 2;
-    WALL = 3; // APPEARING, INVISIBLE, BLUE 
-    EXIT = 4;
-    WATER = 5;
-    FIRE = 6;
-    DIRT = 7;
+    FLOOR = 2; // + color * 10_000
+    WALL = 3; // + (color * 10_000) + rule (0 = NORMAL, 1 = APPEARING, 2 = INVISIBLE, 3 = BLUE REAL, 4 = BLUE FAKE)
+    EXIT = 4; // + color * 10_000
+    WATER = 5; // + color * 10_000 (for dirt/floor that appears when filled in)
+    FIRE = 6; // + color * 10_000 (for water that appears when filled in)
+    DIRT = 7; // + color * 10_000 (for floor that appears)
     GRAVEL = 8;
     ICE = 9;
-    FORCE =10;
-    CLONER = 11;
+    FORCE =10; // + color * 10_000 + direction (0 = RAND, 1 = N, 2 = E, 3 = S, 4 = W)
+    CLONER = 11; // + color * 10_000
     HINT = 12;
     CHECKPOINT = 13;
-    THIEF = 14;
-    TELEPORT = 15;
-    TRAP = 16;
-    DOOR = 17;
-    TOGGLE_WALL = 18;
-    POPUP_WALL = 19;
+    THIEF = 14; // + rule
+    TELEPORT = 15; // + color * 10_000
+    TRAP = 16; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
+    DOOR = 17; // + color * 10_000
+    TOGGLE_WALL = 18; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
+    POPUP_WALL = 19; // + color * 10_000 + count (1-99)
 
     // NESW
-    PANEL = 100; // TOGGLE, FORCE, POPUP
+    PANEL = 100; // + color * 10_000
+    TOGGLE_PANEL = 101; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
+    ONE_WAY_PANEL = 102; // + color * 10_000 + rule (0 = IN, 1 = OUT)
+    POPUP_PANEL = 103; // + color * 10_000 + count
 
     // Modifies exit direction. Use on ice for ice corners.
     // Also useful on floors and force floors.
-    CORNER = 101;
+    CORNER = 104; // + color * 10_000 + dir (0 = NE, 1 = SE, 2 = SW, 3 = NW)
 
     // TERRAIN_MODIFIER
-    SOCKET = 200;
+    SOCKET = 200; // + color * 10_000 + count (= nchips)
     // TOGGLE: Toggle event for {color, channel} when pressed. (default for TW cloners, tanks, toggles).
     // HOLDONE: (default for TW traps)
     //      Toggle event when the first HOLDONE button of this {color, channel} is pressed.
@@ -140,33 +143,38 @@ enum ElemId {
     //      For this {color}, set all other channels to False.
     // AREA
     //      Same as toggle but only acts on elements in a 5x5 square.
-    BUTTON = 201; // TOGGLE, HOLDONE, HOLDALL, ONEOF, AREA
+    TOGGLE_BUTTON = 201; // + color * 10_000 + channel
+    HOLDONE_BUTTON = 202; // + color * 10_000 + channel
+    HOLDALL_BUTTON = 203; // + color * 10_000 + channel
+    ONEOF_BUTTON = 204; // + color * 10_000 + channel
+    AREA_BUTTON = 205 // + color * 10_000 + channel
+    
 
     // PICKUP
     // Rule: 
     // --NORMAL: mobs can enter but cannot pickup
     // --RAINBOW_FENCE: mobs can pickup and use
     // --FENCE: mobs cannot enter
-    CHIP = 300;
+    CHIP = 300; // + color * 10_000 + rule * 1_000 + count
     BOMB = 301;
-    FLIPPERS = 302;
-    SUCTION = 303;
-    FIREBOOTS = 304;
-    SKATES = 305;
-    KEY = 306; // Set count = 1000 for FOREVER_KEY and do not decrement.
+    FLIPPERS = 302; // + rule * 10_000 + count
+    SUCTION = 303; // + rule * 10_000 + count
+    FIREBOOTS = 304; // + rule * 10_000 + count
+    SKATES = 305; // + rule * 10_000 + count
+    KEY = 306; // + color * 10_000 + count (9999 = FOREVER KEY, do not decrement)
 
     // MOB
-    PLAYER = 400;
-    BLOCK = 401;
-    MONSTER = 402;
-    TANK = 403;
+    PLAYER = 400; // + mob_id
+    DIRT_BLOCK = 401; // + mob_id
+    MONSTER = 402; // + mob_id
+    TANK = 403; // + mob_id
 
     // Invisible token that blocks mob entry until next tick.
     // Ensures well behaved monster patterns.
     MOB_FOLLOWER = 499;
 
     // TOP
-    CANOPY = 500;
+    CANOPY = 500; // + color * 10_000
 }
 
 enum Gamestate {
