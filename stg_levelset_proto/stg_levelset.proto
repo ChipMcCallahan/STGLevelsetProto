@@ -10,9 +10,17 @@ syntax = "proto3";
 package stg_levelset_proto;
 option csharp_namespace = "STG";
 
+message Levelset {
+    string title = 1;
+    repeated Gameboard levels = 2;
+    repeated string authors = 3;
+}
+
 // Optimized for editors and sharing. Setup Gameboard from Level.
 message Level {
-
+    string title = 1;
+    repeated string authors = 2;
+    Gameboard gameboard = 4;
 }
 
 // Optimized for in-memory gameplay. Setup from Level.
@@ -22,37 +30,59 @@ message Gameboard {
     int32 size_z = 3;
     int32 tick = 4;
     Gamestate gamestate = 5;
-    map<int32, bool> globals = 6;
+
+    // list index by color, map index by channel
+    // Global variables are stored in Colors and Channels. 
+    // Channels are nested under Colors. A toggle event 
+    //consists of a {Color, Channel} combo, either of which can be 0 (default).
+    // If color == 0, iterate through all colors and toggle the
+    // specified channel.
+    repeated map<int32, bool> globals = 6;
 
     // p = z * (size_x + size_y) + y * size_x + x
     // x = (p % size_z) % size_x
     // y = (p % size_z) // size_x
     // z = p // size_z
-    map<int32, Cell> map = 7;
+    // position to cell containing tokens
+    map<int32, Cell> map = 8;
+
+    // token guid to state
+    map<int32, ElementState> element_states = 9;
 }
 
 message Cell {
-    Element terrain = 1;
-    Element alt_terrain = 2;
-    Element terrain_modifier = 3;
-    Element pickup = 4;
-    Element mob = 5;
-    Element top = 6;
-    Element north = 7;
-    Element east = 8;
-    Element south = 9;
-    Element west = 10;
+    Token terrain = 1;
+    Token terrain_modifier = 2;
+    Token pickup = 3;
+    Token mob = 4;
+    Token top = 5;
+    Token north = 6;
+    Token east = 7;
+    Token south = 8;
+    Token west = 9;
 }
 
-message Element {
+message Token {
+    ElemId id = 1;
+    int32 guid = 2; // must be unique across all gameboard elements
+}
+
+message ElementState {
+    int32 rule = 1;
+    int32 channel = 2;
+    Color color = 3;
+    Direction dir = 4;
+    int32 count = 5;
+    repeated InventoryItem inventory = 6;
+    // TODO: how to handle tags like FORCED/SLIDING.
+    // repeated ElemTag tags = 7;
+}
+
+message InventoryItem {
     ElemId id = 1;
     int32 rule = 2;
-    Color color = 3;
-    int32 channel = 4;
-    Direction dir = 5;
-    int32 count = 6; // Use for inventory counts or piles of items, e.g.
-    repeated Element inventory = 7;
-    map<string, int32> tags = 8; // is_forced, sliding, etc.
+    int32 color = 3;
+    int32 count = 4;
 }
 
 message Input {
@@ -62,7 +92,7 @@ message Input {
 }
 
 enum ElemId {
-    ELEMENT_UNDEFINED = 0;
+    ELEMID_UNDEFINED = 0;
 
     // TERRAIN
     SPACE = 1;
@@ -78,32 +108,58 @@ enum ElemId {
     CLONER = 11;
     HINT = 12;
     CHECKPOINT = 13;
+    THIEF = 14;
+    TELEPORT = 15;
+    TRAP = 16;
+    DOOR = 17;
+    TOGGLE_WALL = 18;
+    POPUP_WALL = 19;
 
     // NESW
     PANEL = 100; // TOGGLE, FORCE, POPUP
+
+    // Modifies exit direction. Use on ice for ice corners.
+    // Also useful on floors and force floors.
     CORNER = 101;
 
     // TERRAIN_MODIFIER
-    BUTTON = 200; // STEPON, ROCKER, ALLON
-    DOOR = 201;
-    SOCKET = 202;
-    THIEF = 203; // KEY, ITEM
-    TELEPORT = 204;
-    TRAP = 205;
-    TOGGLE = 501; // Toggles between terrain layers. GFX should allow hotkey for viewing the alternate layer.
-    POPUP = 502; // Exposes the terrain layers. GFX should allow hotkey for viewing the alternate layer.
+    SOCKET = 200;
+    // TOGGLE: Toggle event for {color, channel} when pressed. (default for TW cloners, tanks, toggles).
+    // HOLDONE: (default for TW traps)
+    //      Toggle event when the first HOLDONE button of this {color, channel} is pressed.
+    //      Toggle event when the last HOLDONE button of this {color, channel} is released.
+    // HOLDALL
+    //      Toggle event when the last HOLDALL button of this {color, channel} is pressed.
+    //      Toggle event when the first HOLDALL buttonn of this {color, channel} is released.
+    // ONEOF
+    //      Set this {color, channel} to True.
+    //      For this {color}, set all other channels to False.
+    // AREA
+    //      Same as toggle but only acts on elements in a 5x5 square.
+    BUTTON = 201; // TOGGLE, HOLDONE, HOLDALL, ONEOF, AREA
 
     // PICKUP
+    // Rule: 
+    // --NORMAL: mobs can enter but cannot pickup
+    // --RAINBOW_FENCE: mobs can pickup and use
+    // --FENCE: mobs cannot enter
     CHIP = 300;
-    KEY = 301; // SINGLE_USE, FOREVER_USE
-    ITEM = 302; //FLIPPER, FIREBOOTS, SKATES, SUCTIONBOOTS
-    BOMB = 303;
+    BOMB = 301;
+    FLIPPERS = 302;
+    SUCTION = 303;
+    FIREBOOTS = 304;
+    SKATES = 305;
+    KEY = 306; // Set count = 1000 for FOREVER_KEY and do not decrement.
 
     // MOB
     PLAYER = 400;
     BLOCK = 401;
     MONSTER = 402;
     TANK = 403;
+
+    // Invisible token that blocks mob entry until next tick.
+    // Ensures well behaved monster patterns.
+    MOB_FOLLOWER = 499;
 
     // TOP
     CANOPY = 500;
