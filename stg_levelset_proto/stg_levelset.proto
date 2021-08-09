@@ -46,7 +46,7 @@ message Gameboard {
     // position to cell containing tokens
     map<int32, Cell> map = 8;
 
-    // token guid to state
+    // key = id * 100_000 + subid. Each element can have up to 100_000 instances.
     map<int32, ElementState> element_states = 9;
 }
 
@@ -68,7 +68,7 @@ message Cell {
 
 message Token {
     ElemId id = 1;
-    int32 guid = 2; // must be unique across all gameboard elements
+    int32 subid = 2;
 }
 
 message ElementState {
