@@ -147,7 +147,7 @@ enum ElemId {
     HOLDONE_BUTTON = 202; // + color * 10_000 + channel
     HOLDALL_BUTTON = 203; // + color * 10_000 + channel
     ONEOF_BUTTON = 204; // + color * 10_000 + channel
-    AREA_BUTTON = 205 // + color * 10_000 + channel
+    AREA_BUTTON = 205; // + color * 10_000 + channel
     
 
     // PICKUP

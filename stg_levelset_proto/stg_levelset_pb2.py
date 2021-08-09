@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='stg_levelset.proto',
   package='stg_levelset_proto',
   syntax='proto3',
-  serialized_pb=_b('\n\x12stg_levelset.proto\x12\x12stg_levelset_proto\"Y\n\x08Levelset\x12\r\n\x05title\x18\x01 \x01(\t\x12-\n\x06levels\x18\x02 \x03(\x0b\x32\x1d.stg_levelset_proto.Gameboard\x12\x0f\n\x07\x61uthors\x18\x03 \x03(\t\"Y\n\x05Level\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0f\n\x07\x61uthors\x18\x02 \x03(\t\x12\x30\n\tgameboard\x18\x04 \x01(\x0b\x32\x1d.stg_levelset_proto.Gameboard\"\xc9\x03\n\tGameboard\x12\x0e\n\x06size_x\x18\x01 \x01(\x05\x12\x0e\n\x06size_y\x18\x02 \x01(\x05\x12\x0e\n\x06size_z\x18\x03 \x01(\x05\x12\x0c\n\x04tick\x18\x04 \x01(\x05\x12\x30\n\tgamestate\x18\x05 \x01(\x0e\x32\x1d.stg_levelset_proto.Gamestate\x12/\n\x07globals\x18\x06 \x03(\x0b\x32\x1e.stg_levelset_proto.ChannelSet\x12\x33\n\x03map\x18\x08 \x03(\x0b\x32&.stg_levelset_proto.Gameboard.MapEntry\x12H\n\x0e\x65lement_states\x18\t \x03(\x0b\x32\x30.stg_levelset_proto.Gameboard.ElementStatesEntry\x1a\x44\n\x08MapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.stg_levelset_proto.Cell:\x02\x38\x01\x1aV\n\x12\x45lementStatesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .stg_levelset_proto.ElementState:\x02\x38\x01\"}\n\nChannelSet\x12>\n\x08\x63hannels\x18\x01 \x03(\x0b\x32,.stg_levelset_proto.ChannelSet.ChannelsEntry\x1a/\n\rChannelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"\x88\x03\n\x04\x43\x65ll\x12*\n\x07terrain\x18\x01 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\x33\n\x10terrain_modifier\x18\x02 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12)\n\x06pickup\x18\x03 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12&\n\x03mob\x18\x04 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12&\n\x03top\x18\x05 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12(\n\x05north\x18\x06 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\'\n\x04\x65\x61st\x18\x07 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12(\n\x05south\x18\x08 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\'\n\x04west\x18\t \x01(\x0b\x32\x19.stg_levelset_proto.Token\">\n\x05Token\x12&\n\x02id\x18\x01 \x01(\x0e\x32\x1a.stg_levelset_proto.ElemId\x12\r\n\x05subid\x18\x02 \x01(\x05\"\xc8\x01\n\x0c\x45lementState\x12\x0c\n\x04rule\x18\x01 \x01(\x05\x12\x0f\n\x07\x63hannel\x18\x02 \x01(\x05\x12(\n\x05\x63olor\x18\x03 \x01(\x0e\x32\x19.stg_levelset_proto.Color\x12*\n\x03\x64ir\x18\x04 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x34\n\tinventory\x18\x06 \x03(\x0b\x32!.stg_levelset_proto.InventoryItem\"c\n\rInventoryItem\x12&\n\x02id\x18\x01 \x01(\x0e\x32\x1a.stg_levelset_proto.ElemId\x12\x0c\n\x04rule\x18\x02 \x01(\x05\x12\r\n\x05\x63olor\x18\x03 \x01(\x05\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\"y\n\x05Input\x12.\n\x07primary\x18\x01 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\x30\n\tsecondary\x18\x02 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\x05*\xd8\x03\n\x06\x45lemId\x12\x14\n\x10\x45LEMID_UNDEFINED\x10\x00\x12\t\n\x05SPACE\x10\x01\x12\t\n\x05\x46LOOR\x10\x02\x12\x08\n\x04WALL\x10\x03\x12\x08\n\x04\x45XIT\x10\x04\x12\t\n\x05WATER\x10\x05\x12\x08\n\x04\x46IRE\x10\x06\x12\x08\n\x04\x44IRT\x10\x07\x12\n\n\x06GRAVEL\x10\x08\x12\x07\n\x03ICE\x10\t\x12\t\n\x05\x46ORCE\x10\n\x12\n\n\x06\x43LONER\x10\x0b\x12\x08\n\x04HINT\x10\x0c\x12\x0e\n\nCHECKPOINT\x10\r\x12\t\n\x05THIEF\x10\x0e\x12\x0c\n\x08TELEPORT\x10\x0f\x12\x08\n\x04TRAP\x10\x10\x12\x08\n\x04\x44OOR\x10\x11\x12\x0f\n\x0bTOGGLE_WALL\x10\x12\x12\x0e\n\nPOPUP_WALL\x10\x13\x12\t\n\x05PANEL\x10\x64\x12\n\n\x06\x43ORNER\x10\x65\x12\x0b\n\x06SOCKET\x10\xc8\x01\x12\x0b\n\x06\x42UTTON\x10\xc9\x01\x12\t\n\x04\x43HIP\x10\xac\x02\x12\t\n\x04\x42OMB\x10\xad\x02\x12\r\n\x08\x46LIPPERS\x10\xae\x02\x12\x0c\n\x07SUCTION\x10\xaf\x02\x12\x0e\n\tFIREBOOTS\x10\xb0\x02\x12\x0b\n\x06SKATES\x10\xb1\x02\x12\x08\n\x03KEY\x10\xb2\x02\x12\x0b\n\x06PLAYER\x10\x90\x03\x12\n\n\x05\x42LOCK\x10\x91\x03\x12\x0c\n\x07MONSTER\x10\x92\x03\x12\t\n\x04TANK\x10\x93\x03\x12\x11\n\x0cMOB_FOLLOWER\x10\xf3\x03\x12\x0b\n\x06\x43\x41NOPY\x10\xf4\x03*A\n\tGamestate\x12\x17\n\x13GAMESTATE_UNDEFINED\x10\x00\x12\x08\n\x04PLAY\x10\x01\x12\x08\n\x04LOSE\x10\x02\x12\x07\n\x03WIN\x10\x03*t\n\x05\x43olor\x12\x13\n\x0f\x43OLOR_UNDEFINED\x10\x00\x12\x07\n\x03RED\x10\x01\x12\x08\n\x04\x42LUE\x10\x02\x12\t\n\x05GREEN\x10\x03\x12\n\n\x06YELLOW\x10\x04\x12\x08\n\x04\x43YAN\x10\x05\x12\x0b\n\x07MAGENTA\x10\x06\x12\n\n\x06ORANGE\x10\x07\x12\t\n\x05\x42ROWN\x10\x08*l\n\tDirection\x12\x17\n\x13\x44IRECTION_UNDEFINED\x10\x00\x12\x05\n\x01N\x10\x01\x12\x05\n\x01\x45\x10\x02\x12\x05\n\x01S\x10\x03\x12\x05\n\x01W\x10\x04\x12\x06\n\x02NE\x10\x05\x12\x06\n\x02SE\x10\x06\x12\x06\n\x02SW\x10\x07\x12\x06\n\x02NW\x10\x08\x12\n\n\x06RANDOM\x10\tB\x06\xaa\x02\x03STGb\x06proto3')
+  serialized_pb=_b('\n\x12stg_levelset.proto\x12\x12stg_levelset_proto\"Y\n\x08Levelset\x12\r\n\x05title\x18\x01 \x01(\t\x12-\n\x06levels\x18\x02 \x03(\x0b\x32\x1d.stg_levelset_proto.Gameboard\x12\x0f\n\x07\x61uthors\x18\x03 \x03(\t\"Y\n\x05Level\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0f\n\x07\x61uthors\x18\x02 \x03(\t\x12\x30\n\tgameboard\x18\x04 \x01(\x0b\x32\x1d.stg_levelset_proto.Gameboard\"\xc9\x03\n\tGameboard\x12\x0e\n\x06size_x\x18\x01 \x01(\x05\x12\x0e\n\x06size_y\x18\x02 \x01(\x05\x12\x0e\n\x06size_z\x18\x03 \x01(\x05\x12\x0c\n\x04tick\x18\x04 \x01(\x05\x12\x30\n\tgamestate\x18\x05 \x01(\x0e\x32\x1d.stg_levelset_proto.Gamestate\x12/\n\x07globals\x18\x06 \x03(\x0b\x32\x1e.stg_levelset_proto.ChannelSet\x12\x33\n\x03map\x18\x08 \x03(\x0b\x32&.stg_levelset_proto.Gameboard.MapEntry\x12H\n\x0e\x65lement_states\x18\t \x03(\x0b\x32\x30.stg_levelset_proto.Gameboard.ElementStatesEntry\x1a\x44\n\x08MapEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.stg_levelset_proto.Cell:\x02\x38\x01\x1aV\n\x12\x45lementStatesEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12/\n\x05value\x18\x02 \x01(\x0b\x32 .stg_levelset_proto.ElementState:\x02\x38\x01\"}\n\nChannelSet\x12>\n\x08\x63hannels\x18\x01 \x03(\x0b\x32,.stg_levelset_proto.ChannelSet.ChannelsEntry\x1a/\n\rChannelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x08:\x02\x38\x01\"\x88\x03\n\x04\x43\x65ll\x12*\n\x07terrain\x18\x01 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\x33\n\x10terrain_modifier\x18\x02 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12)\n\x06pickup\x18\x03 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12&\n\x03mob\x18\x04 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12&\n\x03top\x18\x05 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12(\n\x05north\x18\x06 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\'\n\x04\x65\x61st\x18\x07 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12(\n\x05south\x18\x08 \x01(\x0b\x32\x19.stg_levelset_proto.Token\x12\'\n\x04west\x18\t \x01(\x0b\x32\x19.stg_levelset_proto.Token\">\n\x05Token\x12&\n\x02id\x18\x01 \x01(\x0e\x32\x1a.stg_levelset_proto.ElemId\x12\r\n\x05subid\x18\x02 \x01(\x05\"\xc8\x01\n\x0c\x45lementState\x12\x0c\n\x04rule\x18\x01 \x01(\x05\x12\x0f\n\x07\x63hannel\x18\x02 \x01(\x05\x12(\n\x05\x63olor\x18\x03 \x01(\x0e\x32\x19.stg_levelset_proto.Color\x12*\n\x03\x64ir\x18\x04 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x34\n\tinventory\x18\x06 \x03(\x0b\x32!.stg_levelset_proto.InventoryItem\"c\n\rInventoryItem\x12&\n\x02id\x18\x01 \x01(\x0e\x32\x1a.stg_levelset_proto.ElemId\x12\x0c\n\x04rule\x18\x02 \x01(\x05\x12\r\n\x05\x63olor\x18\x03 \x01(\x05\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\"y\n\x05Input\x12.\n\x07primary\x18\x01 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\x30\n\tsecondary\x18\x02 \x01(\x0e\x32\x1d.stg_levelset_proto.Direction\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\x05*\xe9\x04\n\x06\x45lemId\x12\x14\n\x10\x45LEMID_UNDEFINED\x10\x00\x12\t\n\x05SPACE\x10\x01\x12\t\n\x05\x46LOOR\x10\x02\x12\x08\n\x04WALL\x10\x03\x12\x08\n\x04\x45XIT\x10\x04\x12\t\n\x05WATER\x10\x05\x12\x08\n\x04\x46IRE\x10\x06\x12\x08\n\x04\x44IRT\x10\x07\x12\n\n\x06GRAVEL\x10\x08\x12\x07\n\x03ICE\x10\t\x12\t\n\x05\x46ORCE\x10\n\x12\n\n\x06\x43LONER\x10\x0b\x12\x08\n\x04HINT\x10\x0c\x12\x0e\n\nCHECKPOINT\x10\r\x12\t\n\x05THIEF\x10\x0e\x12\x0c\n\x08TELEPORT\x10\x0f\x12\x08\n\x04TRAP\x10\x10\x12\x08\n\x04\x44OOR\x10\x11\x12\x0f\n\x0bTOGGLE_WALL\x10\x12\x12\x0e\n\nPOPUP_WALL\x10\x13\x12\t\n\x05PANEL\x10\x64\x12\x10\n\x0cTOGGLE_PANEL\x10\x65\x12\x11\n\rONE_WAY_PANEL\x10\x66\x12\x0f\n\x0bPOPUP_PANEL\x10g\x12\n\n\x06\x43ORNER\x10h\x12\x0b\n\x06SOCKET\x10\xc8\x01\x12\x12\n\rTOGGLE_BUTTON\x10\xc9\x01\x12\x13\n\x0eHOLDONE_BUTTON\x10\xca\x01\x12\x13\n\x0eHOLDALL_BUTTON\x10\xcb\x01\x12\x11\n\x0cONEOF_BUTTON\x10\xcc\x01\x12\x10\n\x0b\x41REA_BUTTON\x10\xcd\x01\x12\t\n\x04\x43HIP\x10\xac\x02\x12\t\n\x04\x42OMB\x10\xad\x02\x12\r\n\x08\x46LIPPERS\x10\xae\x02\x12\x0c\n\x07SUCTION\x10\xaf\x02\x12\x0e\n\tFIREBOOTS\x10\xb0\x02\x12\x0b\n\x06SKATES\x10\xb1\x02\x12\x08\n\x03KEY\x10\xb2\x02\x12\x0b\n\x06PLAYER\x10\x90\x03\x12\x0f\n\nDIRT_BLOCK\x10\x91\x03\x12\x0c\n\x07MONSTER\x10\x92\x03\x12\t\n\x04TANK\x10\x93\x03\x12\x11\n\x0cMOB_FOLLOWER\x10\xf3\x03\x12\x0b\n\x06\x43\x41NOPY\x10\xf4\x03*A\n\tGamestate\x12\x17\n\x13GAMESTATE_UNDEFINED\x10\x00\x12\x08\n\x04PLAY\x10\x01\x12\x08\n\x04LOSE\x10\x02\x12\x07\n\x03WIN\x10\x03*t\n\x05\x43olor\x12\x13\n\x0f\x43OLOR_UNDEFINED\x10\x00\x12\x07\n\x03RED\x10\x01\x12\x08\n\x04\x42LUE\x10\x02\x12\t\n\x05GREEN\x10\x03\x12\n\n\x06YELLOW\x10\x04\x12\x08\n\x04\x43YAN\x10\x05\x12\x0b\n\x07MAGENTA\x10\x06\x12\n\n\x06ORANGE\x10\x07\x12\t\n\x05\x42ROWN\x10\x08*l\n\tDirection\x12\x17\n\x13\x44IRECTION_UNDEFINED\x10\x00\x12\x05\n\x01N\x10\x01\x12\x05\n\x01\x45\x10\x02\x12\x05\n\x01S\x10\x03\x12\x05\n\x01W\x10\x04\x12\x06\n\x02NE\x10\x05\x12\x06\n\x02SE\x10\x06\x12\x06\n\x02SW\x10\x07\x12\x06\n\x02NW\x10\x08\x12\n\n\x06RANDOM\x10\tB\x06\xaa\x02\x03STGb\x06proto3')
 )
 
 _ELEMID = _descriptor.EnumDescriptor(
@@ -114,74 +114,102 @@ _ELEMID = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CORNER', index=21, number=101,
+      name='TOGGLE_PANEL', index=21, number=101,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SOCKET', index=22, number=200,
+      name='ONE_WAY_PANEL', index=22, number=102,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BUTTON', index=23, number=201,
+      name='POPUP_PANEL', index=23, number=103,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CHIP', index=24, number=300,
+      name='CORNER', index=24, number=104,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BOMB', index=25, number=301,
+      name='SOCKET', index=25, number=200,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FLIPPERS', index=26, number=302,
+      name='TOGGLE_BUTTON', index=26, number=201,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SUCTION', index=27, number=303,
+      name='HOLDONE_BUTTON', index=27, number=202,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FIREBOOTS', index=28, number=304,
+      name='HOLDALL_BUTTON', index=28, number=203,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='SKATES', index=29, number=305,
+      name='ONEOF_BUTTON', index=29, number=204,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='KEY', index=30, number=306,
+      name='AREA_BUTTON', index=30, number=205,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PLAYER', index=31, number=400,
+      name='CHIP', index=31, number=300,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='BLOCK', index=32, number=401,
+      name='BOMB', index=32, number=301,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MONSTER', index=33, number=402,
+      name='FLIPPERS', index=33, number=302,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='TANK', index=34, number=403,
+      name='SUCTION', index=34, number=303,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MOB_FOLLOWER', index=35, number=499,
+      name='FIREBOOTS', index=35, number=304,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CANOPY', index=36, number=500,
+      name='SKATES', index=36, number=305,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='KEY', index=37, number=306,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PLAYER', index=38, number=400,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DIRT_BLOCK', index=39, number=401,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MONSTER', index=40, number=402,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TANK', index=41, number=403,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MOB_FOLLOWER', index=42, number=499,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CANOPY', index=43, number=500,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=1698,
-  serialized_end=2170,
+  serialized_end=2315,
 )
 _sym_db.RegisterEnumDescriptor(_ELEMID)
 
@@ -211,8 +239,8 @@ _GAMESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2172,
-  serialized_end=2237,
+  serialized_start=2317,
+  serialized_end=2382,
 )
 _sym_db.RegisterEnumDescriptor(_GAMESTATE)
 
@@ -262,8 +290,8 @@ _COLOR = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2239,
-  serialized_end=2355,
+  serialized_start=2384,
+  serialized_end=2500,
 )
 _sym_db.RegisterEnumDescriptor(_COLOR)
 
@@ -317,8 +345,8 @@ _DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2357,
-  serialized_end=2465,
+  serialized_start=2502,
+  serialized_end=2610,
 )
 _sym_db.RegisterEnumDescriptor(_DIRECTION)
 
@@ -344,9 +372,16 @@ DOOR = 17
 TOGGLE_WALL = 18
 POPUP_WALL = 19
 PANEL = 100
-CORNER = 101
+TOGGLE_PANEL = 101
+ONE_WAY_PANEL = 102
+POPUP_PANEL = 103
+CORNER = 104
 SOCKET = 200
-BUTTON = 201
+TOGGLE_BUTTON = 201
+HOLDONE_BUTTON = 202
+HOLDALL_BUTTON = 203
+ONEOF_BUTTON = 204
+AREA_BUTTON = 205
 CHIP = 300
 BOMB = 301
 FLIPPERS = 302
@@ -355,7 +390,7 @@ FIREBOOTS = 304
 SKATES = 305
 KEY = 306
 PLAYER = 400
-BLOCK = 401
+DIRT_BLOCK = 401
 MONSTER = 402
 TANK = 403
 MOB_FOLLOWER = 499
