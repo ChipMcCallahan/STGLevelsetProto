@@ -166,6 +166,7 @@ enum ElemId {
     // MOB
     PLAYER = 400; // + mob_id
     DIRT_BLOCK = 401; // + mob_id
+    // 1 ANT 2 PARA 3 GLIDER 4 FIREBALL 5 BALL 6 WALKER 7 BLOB 8 TEETH
     MONSTER = 402; // + mob_id
     TANK = 403; // + mob_id
 
