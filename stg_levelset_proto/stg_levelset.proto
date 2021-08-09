@@ -102,7 +102,7 @@ enum ElemId {
     SPACE = 1;
     FLOOR = 2; // + color * 10_000
     WALL = 3; // + (color * 10_000) + rule (0 = NORMAL, 1 = APPEARING, 2 = INVISIBLE, 3 = BLUE REAL, 4 = BLUE FAKE)
-    EXIT = 4; // + color * 10_000
+    EXIT = 4; // + color * 10_000, add time limit to elementstate
     WATER = 5; // + color * 10_000 (for dirt/floor that appears when filled in)
     FIRE = 6; // + color * 10_000 (for water that appears when filled in)
     DIRT = 7; // + color * 10_000 (for floor that appears)
