@@ -1,8 +1,8 @@
 // Compile _pb2.py with 
-// protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/STGProto.proto
-// e.g. protoc --python_out=../STG/ STGProto.proto
+// protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/stg_levelset.proto
+// e.g. protoc --python_out=../STG/ stg_levelset.proto
 // or for same folder ops just
-// protoc --python_out=. STGProto.proto
+// protoc --python_out=. stg_levelset.proto
 // replace python_out with csharp_out for .cs file
 
 syntax = "proto3";
@@ -12,7 +12,7 @@ option csharp_namespace = "STG";
 
 message Levelset {
     string title = 1;
-    repeated Gameboard levels = 2;
+    repeated Level levels = 2;
     repeated string authors = 3;
 }
 
