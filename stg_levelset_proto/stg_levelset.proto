@@ -16,77 +16,41 @@ message Levelset {
     repeated string authors = 3;
 }
 
-// Optimized for editors and sharing. Setup Gameboard from Level.
 message Level {
     string title = 1;
     repeated string authors = 2;
-    Gameboard gameboard = 4;
-}
-
-// Optimized for in-memory gameplay. Setup from Level.
-message Gameboard {
-    int32 size_x = 1;
-    int32 size_y = 2;
-    int32 size_z = 3;
-    int32 tick = 4;
-    Gamestate gamestate = 5;
-
-    // list index by color, map index by channel
-    // Global variables are stored in Colors and Channels. 
-    // Channels are nested under Colors. A toggle event 
-    // consists of a {Color, Channel} combo, either of which can be 0 (default).
-    // If color == 0, iterate through all colors and toggle the
-    // specified channel.
-    repeated ChannelSet globals = 6;
-
+    int32 size_x = 3;
+    int32 size_y = 4;
+    int32 size_z = 5;
     // p = z * (size_x + size_y) + y * size_x + x
     // x = (p % size_z) % size_x
     // y = (p % size_z) // size_x
     // z = p // size_z
     // position to cell containing tokens
     map<int32, Cell> map = 8;
-
-    // key = id * 100_000 + subid. Each element can have up to 100_000 instances.
-    map<int32, ElementState> element_states = 9;
-}
-
-message ChannelSet {
-    map<int32, bool> channels = 1;
 }
 
 message Cell {
-    Token terrain = 1;
-    Token terrain_modifier = 2;
-    Token pickup = 3;
-    Token mob = 4;
-    Token top = 5;
-    Token north = 6;
-    Token east = 7;
-    Token south = 8;
-    Token west = 9;
+    Element terrain = 1;
+    Element terrain_modifier = 2;
+    Element pickup = 3;
+    Element mob = 4;
+    Element top = 5;
+    Element north = 6;
+    Element east = 7;
+    Element south = 8;
+    Element west = 9;
 }
 
-message Token {
-    ElemId id = 1;
-    int32 subid = 2;
-}
-
-message ElementState {
-    int32 rule = 1;
-    int32 channel = 2;
-    Color color = 3;
-    Direction dir = 4;
-    int32 count = 5;
-    repeated InventoryItem inventory = 6;
-    // TODO: how to handle tags like FORCED/SLIDING.
-    // repeated ElemTag tags = 7;
-}
-
-message InventoryItem {
+message Element {
     ElemId id = 1;
     int32 rule = 2;
-    int32 color = 3;
-    int32 count = 4;
+    int32 channel = 3;
+    Color color = 4;
+    Direction dir = 5;
+    int32 count = 6;
+    repeated Element inventory = 7;
+    repeated string string_args = 8; // for hints, messages, maybe checkpoints
 }
 
 message Input {
@@ -100,37 +64,37 @@ enum ElemId {
 
     // TERRAIN
     SPACE = 1;
-    FLOOR = 2; // + color * 10_000
-    WALL = 3; // + (color * 10_000) + rule (0 = NORMAL, 1 = APPEARING, 2 = INVISIBLE, 3 = BLUE REAL, 4 = BLUE FAKE)
-    EXIT = 4; // + color * 10_000, add time limit to elementstate
-    WATER = 5; // + color * 10_000 (for dirt/floor that appears when filled in)
-    FIRE = 6; // + color * 10_000 (for water that appears when filled in)
-    DIRT = 7; // + color * 10_000 (for floor that appears)
+    FLOOR = 2; // color
+    WALL = 3; // rule (0 = NORMAL, 1 = APPEARING, 2 = INVISIBLE, 3 = BLUE REAL, 4 = BLUE FAKE)
+    EXIT = 4; // color, count = timelimit
+    WATER = 5; // color (for dirt/floor that appears when filled in)
+    FIRE = 6; // color (for water that appears when filled in)
+    DIRT = 7; // color (for floor that appears)
     GRAVEL = 8;
     ICE = 9;
-    FORCE =10; // + color * 10_000 + direction (0 = RAND, 1 = N, 2 = E, 3 = S, 4 = W)
-    CLONER = 11; // + color * 10_000
+    FORCE =10; // color, direction (0 = RAND, 1 = N, 2 = E, 3 = S, 4 = W)
+    CLONER = 11; // color
     HINT = 12;
     CHECKPOINT = 13;
-    THIEF = 14; // + rule
-    TELEPORT = 15; // + color * 10_000
-    TRAP = 16; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
-    DOOR = 17; // + color * 10_000
-    TOGGLE_WALL = 18; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
-    POPUP_WALL = 19; // + color * 10_000 + count (1-99)
+    THIEF = 14; // rule (0 = item, 1 = key)
+    TELEPORT = 15; // color
+    TRAP = 16; // color, rule (0 = OPEN, 1 = SHUT)
+    DOOR = 17; // color
+    TOGGLE_WALL = 18; // color, rule (0 = OPEN, 1 = SHUT)
+    POPUP_WALL = 19; // color, count
 
     // NESW
-    PANEL = 100; // + color * 10_000
-    TOGGLE_PANEL = 101; // + color * 10_000 + rule (0 = OPEN, 1 = SHUT)
-    ONE_WAY_PANEL = 102; // + color * 10_000 + rule (0 = IN, 1 = OUT)
-    POPUP_PANEL = 103; // + color * 10_000 + count
+    PANEL = 100; // color
+    TOGGLE_PANEL = 101; // color, rule (0 = OPEN, 1 = SHUT)
+    ONE_WAY_PANEL = 102; // color, rule (0 = IN, 1 = OUT)
+    POPUP_PANEL = 103; // color, count
 
     // Modifies exit direction. Use on ice for ice corners.
     // Also useful on floors and force floors.
-    CORNER = 104; // + color * 10_000 + dir (0 = NE, 1 = SE, 2 = SW, 3 = NW)
+    CORNER = 104; // color, dir (0 = NE, 1 = SE, 2 = SW, 3 = NW)
 
     // TERRAIN_MODIFIER
-    SOCKET = 200; // + color * 10_000 + count (= nchips)
+    SOCKET = 200; // color, count (= nchips)
     // TOGGLE: Toggle event for {color, channel} when pressed. (default for TW cloners, tanks, toggles).
     // HOLDONE: (default for TW traps)
     //      Toggle event when the first HOLDONE button of this {color, channel} is pressed.
@@ -143,11 +107,11 @@ enum ElemId {
     //      For this {color}, set all other channels to False.
     // AREA
     //      Same as toggle but only acts on elements in a 5x5 square.
-    TOGGLE_BUTTON = 201; // + color * 10_000 + channel
-    HOLDONE_BUTTON = 202; // + color * 10_000 + channel
-    HOLDALL_BUTTON = 203; // + color * 10_000 + channel
-    ONEOF_BUTTON = 204; // + color * 10_000 + channel
-    AREA_BUTTON = 205; // + color * 10_000 + channel
+    TOGGLE_BUTTON = 201; // + color, channel
+    HOLDONE_BUTTON = 202; // + color, channel
+    HOLDALL_BUTTON = 203; // + color, channel
+    ONEOF_BUTTON = 204; // + color, channel
+    AREA_BUTTON = 205; // + color, channel
     
 
     // PICKUP
@@ -155,27 +119,27 @@ enum ElemId {
     // --NORMAL: mobs can enter but cannot pickup
     // --RAINBOW_FENCE: mobs can pickup and use
     // --FENCE: mobs cannot enter
-    CHIP = 300; // + color * 10_000 + rule * 1_000 + count
+    CHIP = 300; // color, rule, count
     BOMB = 301;
-    FLIPPERS = 302; // + rule * 1_000 + count
-    SUCTION = 303; // + rule * 1_000 + count
-    FIREBOOTS = 304; // + rule * 1_000 + count
-    SKATES = 305; // + rule * 1_000 + count
-    KEY = 306; // + color * 10_000 + rule * 1_000 + count (999 = FOREVER KEY, do not decrement)
+    FLIPPERS = 302; // rule, count
+    SUCTION = 303; // rule, count
+    FIREBOOTS = 304; // rule, count
+    SKATES = 305; // rule, count
+    KEY = 306; // color, rule, count (999 = FOREVER KEY, do not decrement)
 
     // MOB
-    PLAYER = 400; // + mob_id
-    DIRT_BLOCK = 401; // + mob_id
+    PLAYER = 400; // dir, inv
+    DIRT_BLOCK = 401; // dir, inv
     // 1 ANT 2 PARA 3 GLIDER 4 FIREBALL 5 BALL 6 WALKER 7 BLOB 8 TEETH
-    MONSTER = 402; // + mob_id
-    TANK = 403; // + mob_id
+    MONSTER = 402; // rule, dir
+    TANK = 403; // color, dir
 
     // Invisible token that blocks mob entry until next tick.
     // Ensures well behaved monster patterns.
     MOB_FOLLOWER = 499;
 
     // TOP
-    CANOPY = 500; // + color * 10_000
+    CANOPY = 500; // color
 }
 
 enum Gamestate {
